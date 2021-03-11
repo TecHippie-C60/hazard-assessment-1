@@ -20,6 +20,8 @@ export class DesktopComponent implements OnInit {
 
   companyForm: FormGroup;
   hazardsForm: FormGroup;
+  jobDetailForm: FormGroup;
+  workersForm: FormGroup;
 
   // options: string[] = ['One', 'Two', 'Three'];
   // filteredOptions: Observable<string[]>;
@@ -47,12 +49,32 @@ export class DesktopComponent implements OnInit {
       this.formBuilder.group({
         tasks: [''],
         hazards: [''],
-        severity: [''],
-        probability: ['']
+        severity: ['', Validators.required],
+        probability: ['', Validators.required]
       })
     ]) 
   });
+  this.jobDetailForm = this.formBuilder.group({
+    isPreInspectionComplete: [''],
+    isWorkingAlone: [''],
+    commentOnWorkingAlone: [''],
+    warningRibbonNeeded: [''],
+    allPermitsClosedOut: ['NA'],
+    areaCleanedUp: ['NA'],    
+    hazardsRemaining: [''],
+    commentOnRemainingHazards: [''],
+    anyIncidents: [''],
+    commentOnIncidents: ['']
+  });
+  this.workersForm = this.formBuilder.group({
+    workers: this.formBuilder.array([
+      this.formBuilder.group({
+        name: ['']
+      })
+    ])
+  });
   }
+  
 
   ngOnInit(): void {
     // this.authService.token().subscribe(token => {

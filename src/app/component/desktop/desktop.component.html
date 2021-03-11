@@ -30,14 +30,30 @@
       </div>
     </form> -->
   </mat-step>
-  <!-- <mat-step>
+  <mat-step [stepControl]="jobDetailForm" label="Job Details">
+    <app-job-details [jobDetailForm]=jobDetailForm></app-job-details>
+    <div fxLayoutAlign="space-around center">
+      <button mat-flat-button matStepperPrevious color="primary">Back</button>
+      <button mat-flat-button matStepperNext color="primary">Next</button>
+    </div>
+    
+  </mat-step>
+  <mat-step [stepControl]="workersForm" label="Job Details">
+    <app-workers [workersForm]=workersForm></app-workers>
+    <div fxLayoutAlign="space-around center">
+      <button mat-flat-button matStepperPrevious color="primary">Back</button>
+      <button mat-flat-button matStepperNext color="primary">Next</button>
+    </div>
+    
+  </mat-step>
+  <mat-step>
     <ng-template matStepLabel>Done</ng-template>
     <p>You are now done.</p>
     <div>
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button (click)="stepper.reset()">Reset</button>
     </div>
-  </mat-step> -->
+  </mat-step>
 </mat-horizontal-stepper>
 
 

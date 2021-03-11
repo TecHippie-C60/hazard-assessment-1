@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import {FormArray, FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-workers',
@@ -7,11 +8,19 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class WorkersComponent implements OnInit {
 
-  @Input() page;
+  @Input() workersForm;
+  workers:FormArray;
   
-  constructor() { }
+  constructor(private formBuilder: FormBuilder) {   }
+ 
 
   ngOnInit(): void {
+    this.workers = this.workersForm.get('workers');
+  }
+  addWorkers() {
+    this.workersForm.get('workers').push(this.formBuilder.group({
+      name: ['']
+    }))
   }
 
 }

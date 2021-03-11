@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class JobDetailsComponent implements OnInit {
 
-  @Input() page;
+  @Input() jobDetailForm;
 
   constructor() { }
 

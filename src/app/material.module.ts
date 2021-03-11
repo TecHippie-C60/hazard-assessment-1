@@ -22,6 +22,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatStepperModule } from '@angular/material/stepper'; 
+import {MatRadioModule} from '@angular/material/radio';
+
  
 @NgModule({
   imports: [
@@ -45,7 +47,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     BrowserAnimationsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatStepperModule
+    MatStepperModule,
+    MatRadioModule
   ],
   exports:[
     FormsModule,
@@ -68,7 +71,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     BrowserAnimationsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatStepperModule
+    MatStepperModule,
+    MatRadioModule
   ],
   providers: []
 })
