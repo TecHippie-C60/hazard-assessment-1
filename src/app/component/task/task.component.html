@@ -1,35 +1,70 @@
 <div class="header" fxLayout="column">
   <div fxLayout="row" fxLayoutAlign="center">
-    <img src="assets/formlocologo.svg" height="60px">
+    <!-- <img src="assets/formlocologo.svg" height="60px"> -->
   </div>
-  <div fxLayout="column" fxLayoutAlign="center center">
+  <div fxLayout="column" >
     <form class="header-form" [formGroup]="headerForm">
-      <div fxLayout="column">
-        <mat-form-field class="example-chip-list">
-          <mat-label>Favorite Fruits</mat-label>
-          <mat-chip-list #chipList aria-label="Fruit selection">
-            <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable" [removable]="removable" (removed)="remove(fruit)">
-              {{fruit}}
-              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-            </mat-chip>
-            <input placeholder="New fruit..." #fruitInput formControlName="tasks" [matAutocomplete]="auto" [matChipInputFor]="chipList"
-              [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
-          </mat-chip-list>
-          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-            <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
-              {{fruit}}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-        <div fxLayout="row" fxLayoutAlign="center center">
+      <ng-container formArrayName="values">
+      <div fxLayout="column" *ngFor="let _ of values.controls;  index as i">
+        
+        <div [formGroupName]="i" fxLayout="row" fxLayoutAlign="space-around center">
+          <mat-form-field class="example-chip-list">
+
+            <mat-label>Task</mat-label>
+            <mat-chip-list #chipList aria-label="Task selection">
+              <mat-chip *ngFor="let task of tasks[i]" [selectable]="selectable" [removable]="removable" (removed)="remove(task, i)">
+                {{task}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input placeholder="New Task..." #taskInput formControlName="tasks" [matAutocomplete]="auto" [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event, i)">
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event, i)">
+              <mat-option *ngFor="let task of filteredTasks" [value]="task">
+                {{task}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Hazards</mat-label>
+            <mat-select formControlName="hazards" multiple #hazardselect>
+              <mat-select-trigger>
+                {{hazardselect.value ? hazardselect.value[0] : ''}}
+                <span *ngIf="hazardselect.value?.length > 1" class="example-additional-selection">
+                  (+{{hazardselect.value.length - 1}} {{hazardselect.value?.length === 2 ? 'other' : 'others'}})
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let hazard of hazardList" [value]="hazard">{{hazard}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Severity</mat-label>
+            <mat-select formControlName="severity" name="severity">
+              <mat-option *ngFor="let val of severities" [value]="val.value">
+                {{val.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Probability</mat-label>
+            <mat-select formControlName="probability" name="probabaility">
+              <mat-option *ngFor="let val of probabilities" [value]="val.value">
+                {{val.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        <!-- <div fxLayout="row" fxLayoutAlign="center center">
           <button (click)="appService.setPage('header')" mat-stroked-button color="warn" fxFlex>
             BACK
           </button>
           <button (click)="appService.setPage('assessment')" mat-flat-button color="primary" fxFlex>
             NEXT
           </button>
-        </div>
+        </div> -->
       </div>
+      </div>
+    </ng-container>
+    <button mat-flat-button (click)="addHazards()">Add More</button>
     </form>
   </div>
 </div>

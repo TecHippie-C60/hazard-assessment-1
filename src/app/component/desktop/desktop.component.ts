@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AppService } from "../../service/app.service";
 import { AuthService } from "../../service/auth.service";
 
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from "@angular/forms";
 
 @Component({
   selector: 'app-desktop',
@@ -19,6 +19,7 @@ export class DesktopComponent implements OnInit {
   token;
 
   companyForm: FormGroup;
+  hazardsForm: FormGroup;
 
   // options: string[] = ['One', 'Two', 'Three'];
   // filteredOptions: Observable<string[]>;
@@ -36,13 +37,28 @@ export class DesktopComponent implements OnInit {
       jobNumber: [''],
       ppeInspection: ['']
     });
+    // this.hazards = this.formBuilder.group({
+    //   tasks: [''],
+    //   hazards: ['']
+
+    // })
+    this.hazardsForm = this.formBuilder.group ({
+      values: this.formBuilder.array([
+      this.formBuilder.group({
+        tasks: [''],
+        hazards: [''],
+        severity: [''],
+        probability: ['']
+      })
+    ]) 
+  });
   }
 
   ngOnInit(): void {
-    this.authService.token().subscribe(token => {
-      this.token = token;
-      localStorage.setItem('formToken', this.token.token);
-    });
+    // this.authService.token().subscribe(token => {
+    //   this.token = token;
+    //   localStorage.setItem('formToken', this.token.token);
+    // });
   }
 
   goPIN() {
