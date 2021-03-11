@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, Input } from '@angular/core';
+import { Component, ElementRef, ViewChild, Input, OnInit } from '@angular/core';
 
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
@@ -7,51 +7,95 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 
 import { AppService } from "../../service/app.service";
+
+
+interface Severity {
+  value: string,
+  viewValue: string
+}
+interface Probability {
+  value: string,
+  viewValue: string
+}
 
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.scss']
 })
-export class TaskComponent {
+export class TaskComponent implements OnInit{
 
-  @Input() page;
+  @Input() headerForm;
 
-  headerForm: FormGroup;
+  // headerForm: FormGroup;
 
   visible = true;
   selectable = true;
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  filteredFruits: Observable<string[]>;
-  fruits: string[] = ['Lemon'];
-  allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+  filteredTasks: Observable<string[]>;
+  tasks: string[][] = [];
+  allTasks: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+  hazardList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+  
 
-  @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
+  severities: Severity[] = [
+    {viewValue:'Imminent Danger', value: 'imminent-danger'},
+    {viewValue:'Serious', value: 'serious'},
+    {viewValue:'Minor', value:'minor'},
+    {viewValue:'Not applicable', value: 'NA'}
+      ];
+  
+  probabilities: Probability[] = [
+    {viewValue: 'Probable', value: 'probable' },
+    {viewValue: 'Reasonably Probable', value: 'reasonably-probable'},
+    {viewValue:'Remote', value: 'remote'},
+    {viewValue: 'Extremely Remote', value: 'extremely-remote'}
+  ];
+  values: FormArray;
+  @ViewChild('taskInput') taskInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
   constructor(
     public appService: AppService,
     private formBuilder: FormBuilder) {
-    this.headerForm = this.formBuilder.group({
-      tasks: ['']
-    });
+    // this.headerForm = this.formBuilder.group({
+    //   tasks: ['']
+    // });
 
-    this.filteredFruits = this.headerForm.controls['tasks'].valueChanges.pipe(
-        startWith(null),
-        map((fruit: string | null) => fruit ? this._filter(fruit) : this.allFruits.slice()));
+    
   }
-
-  add(event: MatChipInputEvent): void {
+  ngOnInit() {
+    // this.filteredTasks = this.headerForm.valueChanges.pipe(
+    //   startWith(null),
+    //   map((task: string | null) => task ? this._filter(task) : this.allTasks.slice()));
+    this.filteredTasks = this.headerForm.get('values').valueChanges.pipe(data => this.valueChanged(data))
+    
+    this.values = this.headerForm.get('values')
+  }
+  addHazards(){
+    this.headerForm.get('values').push(this.formBuilder.group({
+      tasks:[''],
+      hazards: [''],
+      severity: ['', Validators.required],
+      probability: ['', Validators.required]
+    }))
+  }
+  valueChanged(data)
+  {
+    console.log(data);
+    return this.allTasks;
+  }
+  add(event: MatChipInputEvent, i:number): void {
     const input = event.input;
     const value = event.value;
 
     // Add our fruit
     if ((value || '').trim()) {
-      this.fruits.push(value.trim());
+      (this.tasks[i] ||(this.tasks[i]=[])).push(value.trim());
     }
 
     // Reset the input value
@@ -59,27 +103,30 @@ export class TaskComponent {
       input.value = '';
     }
 
-    this.headerForm.controls['tasks'].setValue(null);
+    this.headerForm.get('values')[i].controls['tasks'].setValue(null);
   }
 
-  remove(fruit: string): void {
-    const index = this.fruits.indexOf(fruit);
+  remove(task: string, i: number): void {
+    const index = this.tasks[i].indexOf(task);
 
     if (index >= 0) {
-      this.fruits.splice(index, 1);
+      this.tasks[i].splice(index, 1);
     }
   }
 
-  selected(event: MatAutocompleteSelectedEvent): void {
-    this.fruits.push(event.option.viewValue);
-    this.fruitInput.nativeElement.value = '';
-    this.headerForm.controls['tasks'].setValue(null);
+  selected(event: MatAutocompleteSelectedEvent, i: number): void {
+    (this.tasks[i] || (this.tasks[i] = [])).push(event.option.viewValue);
+    this.taskInput.nativeElement.value = '';
+    // console.log(i);
+    // console.log(this.headerForm.get('values').controls[i])
+    console.log(this.headerForm.get('values').value)
+    // this.headerForm.get('values').controls[i].controls['tasks'].setValue(null);
   }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.allFruits.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
+    return this.allTasks.filter(task => task.toLowerCase().indexOf(filterValue) === 0);
   }
   
 }

@@ -7,14 +7,19 @@
 <mat-horizontal-stepper [linear]=true #stepper>
   <mat-step [stepControl]="companyForm" label="Company Information">
     <app-company [companyForm]=companyForm></app-company>
-    <div>
-      <button mat-flat-button matStepperNext color="primary" fxFlex>
+    <div fxLayoutAlign="space-around center">
+      <button mat-flat-button matStepperNext color="primary">
         NEXT
       </button>
     </div>
   </mat-step>
-  <!-- <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
-    <form [formGroup]="secondFormGroup">
+  <mat-step [stepControl]="hazardsForm" label="Identify tasks & hazards">
+    <app-task [headerForm]=hazardsForm></app-task>
+    <div fxLayoutAlign="space-around center">
+      <button mat-flat-button matStepperPrevious color="primary">Back</button>
+      <button mat-flat-button matStepperNext color="primary">Next</button>
+    </div>
+    <!-- <form [formGroup]="secondFormGroup">
       <mat-form-field>
         <mat-label>Address</mat-label>
         <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
@@ -23,16 +28,32 @@
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
       </div>
-    </form>
-  </mat-step> -->
-  <!-- <mat-step>
+    </form> -->
+  </mat-step>
+  <mat-step [stepControl]="jobDetailForm" label="Job Details">
+    <app-job-details [jobDetailForm]=jobDetailForm></app-job-details>
+    <div fxLayoutAlign="space-around center">
+      <button mat-flat-button matStepperPrevious color="primary">Back</button>
+      <button mat-flat-button matStepperNext color="primary">Next</button>
+    </div>
+    
+  </mat-step>
+  <mat-step [stepControl]="workersForm" label="Job Details">
+    <app-workers [workersForm]=workersForm></app-workers>
+    <div fxLayoutAlign="space-around center">
+      <button mat-flat-button matStepperPrevious color="primary">Back</button>
+      <button mat-flat-button matStepperNext color="primary">Next</button>
+    </div>
+    
+  </mat-step>
+  <mat-step>
     <ng-template matStepLabel>Done</ng-template>
     <p>You are now done.</p>
     <div>
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button (click)="stepper.reset()">Reset</button>
     </div>
-  </mat-step> -->
+  </mat-step>
 </mat-horizontal-stepper>
 
 
