@@ -1,6 +1,6 @@
-<div fxLayout="column" fxLayoutAlign="center center">
+<div fxLayout="column" [ngStyle]="{'background-color': appService.canvasBackground}" fxLayoutAlign="center center">
   <div fxLayout="row" fxLayoutAlign="space-between">
-    <div class="mat-headline">Enter PIN</div>
+    <div class="menu-label">Enter PIN</div>
   </div>
   <form [formGroup]="pinForm">
     <div fxLayout="column">

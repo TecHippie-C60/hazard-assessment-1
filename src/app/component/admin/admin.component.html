@@ -1,15 +1,16 @@
-<div class="nav-padding" fxLayout="row" fxLayoutAlign="space-between center">
-  <div>
-    <h2>Template Admin</h2>
-  </div>
-  <div fxLayoutGap="10px">
-    
-    <button (click)="goHome()" mat-stroked-button color="primary">
-      CANCEL
-    </button>
-    
-  </div>
-</div>
-<div class="content" fxLayout="column">
-  
+<div class="column" fxFlexFill>
+  <mat-sidenav-container class="list-container" [ngStyle]="{'background-color': appService.canvasBackground}" (backdropClick)="close('backdrop')"
+    autosize>
+    <mat-sidenav #sidenav (keydown.escape)="close('escape')" [ngClass]="(appService.isMainMenu ? 'menu-open':'menu-icons')" mode="over" [(opened)]="appService.isListMenu" position="end">
+      <div fxLayout="row" class="toggle-close icon-pointer padding hand" (click)="toggleMainMenu()" fxLayoutAlign="start">
+        <mat-icon *ngIf="!appService.isMainMenu">menu_open</mat-icon>
+        <mat-icon *ngIf="appService.isMainMenu">menu</mat-icon>
+      </div>
+      <app-form-lists></app-form-lists>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <app-list-run *ngIf="!appService.isData"></app-list-run>
+      <app-data *ngIf="appService.isData"></app-data>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>

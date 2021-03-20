@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import * as uuid from 'uuid';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSidenav } from '@angular/material/sidenav';
 
 import { FormBuilder, FormControl, Validators, FormGroup, FormArray } from '@angular/forms';
 
@@ -12,6 +13,7 @@ import { AuthService } from "../../service/auth.service";
 
 import { environment } from '../../../environments/environment';
 
+
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -19,45 +21,45 @@ import { environment } from '../../../environments/environment';
 })
 export class AdminComponent implements OnInit {
 
+  @ViewChild('sidenav') sidenav: MatSidenav;
+
   token;
   templates;
+  
   templateControls;
 
   templateForm: FormGroup;
 
+  page;
   fileArray = [];
   isError = false;
-  isNotFile = true;
+  isMainMenu = true;
+  isRightMenu = false;
   isImportOpen = false;
+  isLookuplist = true;
 
   constructor(
     private router: Router,
     private snackBar: MatSnackBar,
     private formBuilder: FormBuilder,
-    private appService: AppService,
+    public appService: AppService,
     private authService: AuthService) { 
       this.templateForm = this.formBuilder.group({
         templateArray: this.formBuilder.array([])
       });
     }
-
   
-  ngOnInit(): void {
-    let obj = {
-      form_id: '',
-      tenant_id: ''
-    }
-    this.appService.getLists(obj).subscribe(templates => {
-      this.templates = templates;
-      this.templates.forEach(element => {
-        const _templates = this.templateForm.controls.templateArray as FormArray;
-        _templates.push(this.formBuilder.group({
-          name: [element.form.name],
-          description: [element.description],
-          is_published: [element.is_published]
-        }));
-      });
-    });
+  ngOnInit() {
+    this.appService.getForms();
+  }
+
+  toggleMainMenu() {
+    this.appService.isMainMenu = !this.appService.isMainMenu;
+  }
+
+  close(reason: string) {
+    this.appService.isMainMenu = false;
+    this.sidenav.close();
   }
 
   closeOverlay() {
@@ -67,6 +69,10 @@ export class AdminComponent implements OnInit {
   goHome() {
     this.authService.loginStatus = false;
     this.router.navigate(['']);
+  }
+
+  openList() {
+    this.appService.isData = false;
   }
 
 }

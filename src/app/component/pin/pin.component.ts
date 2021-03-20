@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 
+import { AppService } from "../../service/app.service";
 import { AuthService } from "../../service/auth.service";
 import { ErrorService } from "../../service/error.service";
 
@@ -17,11 +17,13 @@ export class PinComponent implements OnInit {
 
   auth;
   token;
+
+  pin = environment.pin;
   pinForm: FormGroup;
 
   constructor(
-    private router: Router,
     private fb: FormBuilder,
+    public appService: AppService,
     private authService: AuthService,
     private errorService: ErrorService) { 
     this.pinForm = this.fb.group({
@@ -33,22 +35,25 @@ export class PinComponent implements OnInit {
   }
 
   loginPIN() {
-    let obj = {
-      tenant_id: '',
-      pin: this.pinForm.controls['pin'].value
+    if (this.appService.tenantID !== undefined) {
+      /**
+       * Todo: got to server with tenantID and get/sync form data
+       * will need to pass form_id found in form model
+       */
     }
-    this.authService.loginPIN(obj).subscribe(auth => {
-      this.auth = auth;
-      if (this.auth.message !== 'Sign in sucessful.')
-        this.errorService.popSnackbar(this.auth.message);
-      else
-        this.router.navigate(['admin']);
-    });
+
+    if (this.pin == this.pinForm.controls['pin'].value) {
+      // this.authService.loginStatus = true;
+      this.appService.isSignin = true;
+      this.appService.isPin = false;
+    }
+    else
+      this.errorService.popSnackbar('Incorrect PIN');
   }
 
   goHome() {
     this.authService.loginStatus = false;
-    this.router.navigate(['']);
+    this.appService.isPin = false;
   }
 
 }

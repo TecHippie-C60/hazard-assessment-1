@@ -86,7 +86,6 @@ export class TaskComponent implements OnInit{
   }
   valueChanged(data)
   {
-    console.log(data);
     return this.allTasks;
   }
   add(event: MatChipInputEvent, i:number): void {

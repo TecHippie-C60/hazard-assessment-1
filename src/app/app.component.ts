@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
+
+import { Router, ActivatedRoute } from '@angular/router';
+
+import { AppService } from "./service/app.service";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +11,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'assessment';
+
+  tenantID
+
+  constructor(
+    private route: ActivatedRoute,
+    public appService: AppService) {
+      this.appService.tenantID = this.route.snapshot.params.tenantID;
+      
+  }
+
+
+
 }

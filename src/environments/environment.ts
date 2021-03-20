@@ -4,8 +4,16 @@
 
 export const environment = {
   production: false,
-  authUrl: 'http://localhost:9000/',
-  apiUrl: 'http://localhost:9003/'
+  apiUrl: 'https://bluerockmicro.com/api/',
+  authUrl: 'https://bluerockmicro.com/auth/',
+  formUrl: 'https://bluerockmicro.com/form/',
+
+  // authUrl: 'http://localhost:9000/',
+  // userUrl: 'http://localhost:9001/',
+  // formUrl: 'http://localhost:9002/',
+  // apiUrl: 'http://localhost:9003/',
+  pinKeySecret: 'supersecret',
+  pin: 111111
 };
 
 /*
