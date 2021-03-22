@@ -12,7 +12,6 @@ import { AuthService } from "../../service/auth.service";
 import { DataService } from "../../service/data.service";
 import { BuilderService } from "../../service/builder.service";
 import { IdbCrudService } from "../../service-idb/idb-crud.service";
-import { TransformStructureService } from "../../service/transform-structure.service";
 
 import { environment } from '../../../environments/environment';
 
@@ -41,8 +40,7 @@ export class FormListsComponent implements OnInit {
     private authService: AuthService,
     private dataService: DataService,
     public builderService: BuilderService,
-    private idbCrudService: IdbCrudService,
-    private transformStructureService: TransformStructureService) {
+    private idbCrudService: IdbCrudService) {
     this.lookupListForm = this.formBuilder.group({
       lookupListName: ['', Validators.required]
     });
@@ -79,10 +77,8 @@ export class FormListsComponent implements OnInit {
 
   run(formObj) {
     console.log(formObj)
-    this.builderService.formObj = formObj;
-    this.builderService.controlArray = formObj.form.controls;
-    this.builderService.detailArray = formObj.form.details;
-    this.openRun();
+    this.appService.formObj = formObj;
+    this.appService.isData = false;
   }
 
   closeOverlay() {
@@ -90,7 +86,7 @@ export class FormListsComponent implements OnInit {
   }
 
   openRun() {
-    this.appService.page = 'run';
+    
   }
 
 }

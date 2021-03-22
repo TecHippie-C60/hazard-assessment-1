@@ -37,7 +37,7 @@ export class DataService {
       this.idbData = this.idbData.filter(
         data => data.form_id === formObj.form_id
       );
-      this.builderService.formObj = formObj;
+      this.appService.formObj = formObj;
     });
   }
 

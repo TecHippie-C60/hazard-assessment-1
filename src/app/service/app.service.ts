@@ -19,7 +19,6 @@ export class AppService {
   public isJobDetail;
   public isWorker;
   public isListMenu;
-  public isMainMenu = false;
 
   public isPin;
   public isSignin;
@@ -29,6 +28,7 @@ export class AppService {
 
   public page;
   public forms;
+  public formObj;
   public apiLists;
   public lookupLists;
 

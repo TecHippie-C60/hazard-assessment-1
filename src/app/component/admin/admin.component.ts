@@ -53,12 +53,7 @@ export class AdminComponent implements OnInit {
     this.appService.getForms();
   }
 
-  toggleMainMenu() {
-    this.appService.isMainMenu = !this.appService.isMainMenu;
-  }
-
   close(reason: string) {
-    this.appService.isMainMenu = false;
     this.sidenav.close();
   }
 

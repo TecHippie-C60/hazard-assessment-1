@@ -78,9 +78,9 @@ export class DataComponent implements OnInit {
 
       if (this.data.length > 0) {
         this.data = this.data.filter(
-          data => data.form_id === this.builderService.formObj.form_id
+          data => data.form_id === this.appService.formObj.form_id
         );
-        this.columnLabels = JSON.parse(this.builderService.formObj.form.labels);
+        this.columnLabels = JSON.parse(this.appService.formObj.form.labels);
         this.setTable();
       }
     });
@@ -88,8 +88,8 @@ export class DataComponent implements OnInit {
 
   getCloud() {
     let obj = ({
-      form_id: this.builderService.formObj.form_id,
-      tenant_id: this.builderService.formObj.tenant_id
+      form_id: this.appService.formObj.form_id,
+      tenant_id: this.appService.formObj.tenant_id
     })
 
     this.dataService.getData(obj).subscribe(data => {
@@ -121,7 +121,7 @@ export class DataComponent implements OnInit {
     colIndex = this.columns.findIndex(col => col === 'form_columns');
     this.columns.splice(colIndex, 1);
 
-    this.columnLabels = JSON.parse(this.builderService.formObj.form.labels);
+    this.columnLabels = JSON.parse(this.appService.formObj.form.labels);
     this.columnLabels.push('Date Created');
 
     this.columnsToDisplay = this.columns;

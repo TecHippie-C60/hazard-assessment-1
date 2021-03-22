@@ -1,15 +1,11 @@
 <div class="column" fxFlexFill>
   <mat-sidenav-container class="list-container" [ngStyle]="{'background-color': appService.canvasBackground}" (backdropClick)="close('backdrop')"
     autosize>
-    <mat-sidenav #sidenav (keydown.escape)="close('escape')" [ngClass]="(appService.isMainMenu ? 'menu-open':'menu-icons')" mode="over" [(opened)]="appService.isListMenu" position="end">
-      <div fxLayout="row" class="toggle-close icon-pointer padding hand" (click)="toggleMainMenu()" fxLayoutAlign="start">
-        <mat-icon *ngIf="!appService.isMainMenu">menu_open</mat-icon>
-        <mat-icon *ngIf="appService.isMainMenu">menu</mat-icon>
-      </div>
+    <mat-sidenav #sidenav (keydown.escape)="close('escape')" class="list-menu" mode="over" [(opened)]="appService.isListMenu" position="end">
       <app-form-lists></app-form-lists>
     </mat-sidenav>
     <mat-sidenav-content>
-      <app-list-run *ngIf="!appService.isData"></app-list-run>
+      <app-list-run *ngIf="!appService.isData" [formObj]=appService.formObj></app-list-run>
       <app-data *ngIf="appService.isData"></app-data>
     </mat-sidenav-content>
   </mat-sidenav-container>
