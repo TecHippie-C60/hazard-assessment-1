@@ -10,6 +10,7 @@ import { map, startWith } from 'rxjs/operators';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 
 import { AppService } from "../../service/app.service";
+import {environment} from "../../../environments/environment";
 
 
 interface Severity {
@@ -37,27 +38,14 @@ export class TaskComponent implements OnInit{
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   filteredTasks: Observable<string[]>;
-  tasks: string[][] = [];
-  allTasks: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+
   hazardList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
   
-
-  severities: Severity[] = [
-    {viewValue:'Imminent Danger', value: 'imminent-danger'},
-    {viewValue:'Serious', value: 'serious'},
-    {viewValue:'Minor', value:'minor'},
-    {viewValue:'Not applicable', value: 'NA'}
-      ];
-  
-  probabilities: Probability[] = [
-    {viewValue: 'Probable', value: 'probable' },
-    {viewValue: 'Reasonably Probable', value: 'reasonably-probable'},
-    {viewValue:'Remote', value: 'remote'},
-    {viewValue: 'Extremely Remote', value: 'extremely-remote'}
-  ];
+ 
+  severities: Severity[] = [];
+  probabilities: Probability[] = [];
   values: FormArray;
-  @ViewChild('taskInput') taskInput: ElementRef<HTMLInputElement>;
-  @ViewChild('auto') matAutocomplete: MatAutocomplete;
+ 
 
   constructor(
     public appService: AppService,
@@ -69,13 +57,15 @@ export class TaskComponent implements OnInit{
     
   }
   ngOnInit() {
-    // this.filteredTasks = this.headerForm.valueChanges.pipe(
-    //   startWith(null),
-    //   map((task: string | null) => task ? this._filter(task) : this.allTasks.slice()));
-    this.filteredTasks = this.headerForm.get('values').valueChanges.pipe(data => this.valueChanged(data))
-    
-    this.values = this.headerForm.get('values')
+    this.values = this.headerForm.get('values');
+
+    this.appService.getListData().subscribe(data => {
+      this.hazardList = data.filter(d => {return d.name =="hazards"})[0]?.data?.map(d => { return d.item });
+      this.severities = data.filter(d => {return d.name =="severities"})[0]?.data?.map(d => { return {viewValue:d.item, value: d.item} });
+      this.probabilities = data.filter(d => { return d.name =="probabilities"})[0]?.data?.map(d => { return {viewValue:d.item, value: d.item} });
+    })                                 
   }
+
   addHazards(){
     this.headerForm.get('values').push(this.formBuilder.group({
       tasks:[''],
@@ -84,43 +74,9 @@ export class TaskComponent implements OnInit{
       probability: ['', Validators.required]
     }))
   }
-  valueChanged(data)
-  {
-    return this.allTasks;
-  }
-  add(event: MatChipInputEvent, i:number): void {
-    const input = event.input;
-    const value = event.value;
 
-    // Add our fruit
-    if ((value || '').trim()) {
-      (this.tasks[i] ||(this.tasks[i]=[])).push(value.trim());
-    }
 
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
 
-    this.headerForm.get('values')[i].controls['tasks'].setValue(null);
-  }
-
-  remove(task: string, i: number): void {
-    const index = this.tasks[i].indexOf(task);
-
-    if (index >= 0) {
-      this.tasks[i].splice(index, 1);
-    }
-  }
-
-  selected(event: MatAutocompleteSelectedEvent, i: number): void {
-    (this.tasks[i] || (this.tasks[i] = [])).push(event.option.viewValue);
-    this.taskInput.nativeElement.value = '';
-    // console.log(i);
-    // console.log(this.headerForm.get('values').controls[i])
-    console.log(this.headerForm.get('values').value)
-    // this.headerForm.get('values').controls[i].controls['tasks'].setValue(null);
-  }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();

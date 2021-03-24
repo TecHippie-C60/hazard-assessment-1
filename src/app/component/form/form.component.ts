@@ -8,6 +8,8 @@ import { AppService } from "../../service/app.service";
 import { AuthService } from "../../service/auth.service";
 
 import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from "@angular/forms";
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-form',
@@ -32,7 +34,8 @@ export class FormComponent implements OnInit {
     private router: Router,
     public appService: AppService,
     private formBuilder: FormBuilder,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private _snackBar: MatSnackBar) {
     this.companyForm = this.formBuilder.group({
       date: [''],
       company: [''],
@@ -88,7 +91,24 @@ export class FormComponent implements OnInit {
   goPIN() {
     this.router.navigate(['admin']);
   }
+  submitForm()
+  {
+    let formValues = {
+      'company': this.companyForm.value,
+      'hazards': this.hazardsForm.value
+    }
+    
+    this.appService.saveFormData(formValues);
+    
+    this.companyForm.reset();
+    this.hazardsForm.reset();
+    this._snackBar.open("Form Submitted!", '',{
+      duration: 3000,
+      verticalPosition: 'top'
 
+    });
+    
+  }
   openLists() {
     this.isLookuplist = true;
     this.isRightMenu = !this.isRightMenu;

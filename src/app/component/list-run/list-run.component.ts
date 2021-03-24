@@ -71,6 +71,7 @@ export class ListRunComponent implements OnChanges {
       data["date_created"] = new Date()
       let obj = {
         form_id: this.appService.formObj.form_id,
+        name: this.appService.formObj.name,
         tenant_id: this.appService.formObj.tenant_id,
         columns: this.appService.formObj.form.columns,
         data: dataArray

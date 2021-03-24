@@ -49,24 +49,8 @@ export class FormListsComponent implements OnInit {
   ngOnInit(): void { }
 
   createLookuplist() {
-    this.lookupList.form.name = this.lookupListForm.get('lookupListName').value;
-    let userCreated = { email: 'polly@formloco.com', date_created: new Date() }
-    let sixdigitsrandom = Math.floor(100000 + Math.random() * 900000);
-    let pin = CryptoJS.AES.encrypt(JSON.stringify(sixdigitsrandom + 'true'), this.pinKeySecret).toString();
-
-    let idbForm = ({
-      form: this.lookupList.form,
-      form_id: uuid.v4(),
-      pin: pin,
-      columns: this.lookupList.form.columns,
-      date_created: new Date(),
-      date_archived: undefined,
-      date_last_access: new Date(),
-      user_created: userCreated,
-      user_archived: null,
-      is_data: false,
-      is_published: true
-    });
+    let listName = this.lookupListForm.get('lookupListName').value;
+    let idbForm = this.appService.createList(listName);
     this.idbCrudService.put('form', idbForm).subscribe(id => {
       this.fileArray = [];
       this.closeOverlay();
@@ -76,7 +60,7 @@ export class FormListsComponent implements OnInit {
   }
 
   run(formObj) {
-    console.log(formObj)
+    // console.log(formObj)
     this.appService.formObj = formObj;
     this.appService.isData = false;
   }

@@ -1,4 +1,4 @@
-import { Component, OnChanges, Input } from '@angular/core';
+import { Component, OnChanges, Input, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -12,7 +12,7 @@ import { AppService } from "../../service/app.service";
   templateUrl: './company.component.html',
   styleUrls: ['./company.component.scss']
 })
-export class CompanyComponent implements OnChanges {
+export class CompanyComponent implements OnChanges, OnInit {
 
   @Input() companyForm;
 
@@ -27,6 +27,13 @@ export class CompanyComponent implements OnChanges {
     const filterValue = value.toLowerCase();
 
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
+  ngOnInit(): void {
+    this.appService.getListData().subscribe(data => {
+      this.options = data.filter(d => {return d.name =="companies"})[0]?.data?.map(d => { return d.item });
+      
+    })
   }
 
   ngOnChanges(): void {

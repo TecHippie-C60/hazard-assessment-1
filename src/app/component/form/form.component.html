@@ -32,10 +32,12 @@
   </mat-step> -->
     <mat-step>
       <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
+      <div fxLayoutAlign="space-around center">
+        <button mat-flat-button color="primary" (click)="submitForm();stepper.reset();">Submit Form</button>
+      </div>
+      <div fxLayoutAlign="space-around center">
+        <button mat-flat-button color="primary" matStepperPrevious>Back</button>
+        <button mat-flat-button color="primary" (click)="stepper.reset()">Reset</button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>

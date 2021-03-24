@@ -9,21 +9,8 @@
         
         <div [formGroupName]="i" fxLayout="row" fxLayoutAlign="space-around center">
           <mat-form-field class="example-chip-list">
-
             <mat-label>Task</mat-label>
-            <mat-chip-list #chipList aria-label="Task selection">
-              <mat-chip *ngFor="let task of tasks[i]" [selectable]="selectable" [removable]="removable" (removed)="remove(task, i)">
-                {{task}}
-                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-              </mat-chip>
-              <input placeholder="New Task..." #taskInput formControlName="tasks" [matAutocomplete]="auto" [matChipInputFor]="chipList"
-                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event, i)">
-            </mat-chip-list>
-            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event, i)">
-              <mat-option *ngFor="let task of filteredTasks" [value]="task">
-                {{task}}
-              </mat-option>
-            </mat-autocomplete>
+            <input matInput placeholder="Task" formControlName="tasks" type="text">
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Hazards</mat-label>
