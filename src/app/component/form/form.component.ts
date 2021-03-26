@@ -53,8 +53,8 @@ export class FormComponent implements OnInit {
       this.formBuilder.group({
         tasks: [''],
         hazards: [''],
-        severity: ['', Validators.required],
-        probability: ['', Validators.required]
+        severity: [''],
+        probability: ['']
       })
     ]);
     this.hazardsForm = this.formBuilder.group ({
@@ -120,9 +120,6 @@ export class FormComponent implements OnInit {
     this.isLookuplist = true;
     this.isRightMenu = !this.isRightMenu;
   }
-  panelOpen(value:boolean)
-  {
-    this.isPanelOpen = value;
-  }
+
 
 }

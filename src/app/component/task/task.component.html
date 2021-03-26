@@ -112,7 +112,8 @@
   </mat-expansion-panel>
 </ng-container>
 </form>
-  <button mat-flat-button (click)="addMoreTasks()" *ngIf="!panelOpenState">Add More</button>
-
+<div fxLayoutAlign="center">
+  <button color="primary" mat-flat-button (click)="addMoreTasks()" *ngIf="!panelOpenState">Add More</button>
+</div>
 </mat-accordion>
 </div>

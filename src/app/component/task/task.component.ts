@@ -31,7 +31,7 @@ interface Probability {
 export class TaskComponent implements OnInit{
 
   @Input() headerForm;
-  @Output() isPanelOpen = new EventEmitter();
+  // @Output() isPanelOpen = new EventEmitter();
   @ViewChild('taskInput') taskInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
   @ViewChild('headerAuto') matAutocompleteHeader: MatAutocomplete;
@@ -83,12 +83,12 @@ export class TaskComponent implements OnInit{
     this.headerForm.get('values').push(this.formBuilder.group({
       tasks:[''],
       hazards: [''],
-      severity: ['', Validators.required],
-      probability: ['', Validators.required]
+      severity: [''],
+      probability: ['']
     }))
     this.selectedIndex = this.headerForm.get('values').length -1;
     this.panelOpenState = true;
-    this.isPanelOpen.emit(this.panelOpenState);
+    // this.isPanelOpen.emit(this.panelOpenState);
   }
   // addTask() {
   //   let headerValue = this.headerForm.get('value')
@@ -104,19 +104,19 @@ export class TaskComponent implements OnInit{
   // }
   panelOpened(index)
   {
-    console.log("panel opened "+index);
+    // console.log("panel opened "+index);
     this.selectedIndex = index;
     this.panelOpenState = true;
-    this.isPanelOpen.emit(this.panelOpenState);
+    // this.isPanelOpen.emit(this.panelOpenState);
   }
 
   panelClosed(index)
   {
-    console.log("panel closed "+index);
+    // console.log("panel closed "+index);
     if(index == this.selectedIndex)
     {
       this.panelOpenState = false;
-      this.isPanelOpen.emit(this.panelOpenState);
+      // this.isPanelOpen.emit(this.panelOpenState);
     }
   }
 }

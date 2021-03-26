@@ -1,18 +1,18 @@
 <mat-horizontal-stepper [linear]=true #stepper>
     <mat-step [stepControl]="companyForm" label="Company Information">
       <app-company [companyForm]=companyForm></app-company>
-      <div fxLayoutAlign="space-around center">
+      <!-- <div fxLayoutAlign="space-around center">
         <button mat-flat-button matStepperNext color="primary">
           NEXT
         </button>
-      </div>
+      </div> -->
     </mat-step>
     <mat-step [stepControl]="hazardsForm" label="Identify tasks & hazards">
-      <app-task [headerForm]=hazardsForm (isPanelOpen)="panelOpen($event)"></app-task>
-      <div fxLayoutAlign="space-around center" *ngIf="!isPanelOpen">
+      <app-task [headerForm]=hazardsForm ></app-task>
+      <!-- <div fxLayoutAlign="space-around center">
         <button mat-flat-button matStepperPrevious color="primary">Back</button>
         <button mat-flat-button matStepperNext color="primary">Next</button>
-      </div>
+      </div> -->
     </mat-step>
     <!-- <mat-step [stepControl]="jobDetailForm" label="Job Details">
     <app-job-details [jobDetailForm]=jobDetailForm></app-job-details>
@@ -35,9 +35,9 @@
       <div fxLayoutAlign="space-around center">
         <button mat-flat-button color="primary" (click)="submitForm();stepper.reset();">Submit Form</button>
       </div>
-      <div fxLayoutAlign="space-around center">
+      <!-- <div fxLayoutAlign="space-around center">
         <button mat-flat-button color="primary" matStepperPrevious>Back</button>
         <button mat-flat-button color="primary" (click)="stepper.reset()">Reset</button>
-      </div>
+      </div> -->
     </mat-step>
   </mat-horizontal-stepper>
