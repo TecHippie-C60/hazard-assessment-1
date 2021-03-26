@@ -29,7 +29,7 @@ export class FormComponent implements OnInit {
   workersForm: FormGroup;
 
   myInnerHeight = window.innerHeight;
-
+  isPanelOpen = false;
   constructor(
     private router: Router,
     public appService: AppService,
@@ -49,15 +49,16 @@ export class FormComponent implements OnInit {
     //   hazards: ['']
 
     // })
-    this.hazardsForm = this.formBuilder.group ({
-      values: this.formBuilder.array([
+    let formArray: FormArray = this.formBuilder.array([
       this.formBuilder.group({
         tasks: [''],
         hazards: [''],
         severity: ['', Validators.required],
         probability: ['', Validators.required]
       })
-    ]) 
+    ]);
+    this.hazardsForm = this.formBuilder.group ({
+      values: formArray
   });
   this.jobDetailForm = this.formBuilder.group({
     isPreInspectionComplete: [''],
@@ -102,6 +103,12 @@ export class FormComponent implements OnInit {
     
     this.companyForm.reset();
     this.hazardsForm.reset();
+    console.log(this.hazardsForm.get('values').get('controls'));
+    // this.hazardsForm.get('values').clear();
+    let formArray: FormArray = this.hazardsForm.get('values') as FormArray;
+    while (formArray.length !== 1) {
+      formArray.removeAt(0)
+    }
     this._snackBar.open("Form Submitted!", '',{
       duration: 3000,
       verticalPosition: 'top'
@@ -112,6 +119,10 @@ export class FormComponent implements OnInit {
   openLists() {
     this.isLookuplist = true;
     this.isRightMenu = !this.isRightMenu;
+  }
+  panelOpen(value:boolean)
+  {
+    this.isPanelOpen = value;
   }
 
 }

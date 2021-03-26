@@ -25,6 +25,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatExpansionModule} from '@angular/material/expansion';
  
 @NgModule({
   imports: [
@@ -51,7 +52,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatStepperModule,
     MatRadioModule,
     OverlayModule,
-    MatSlideToggleModule 
+    MatSlideToggleModule,
+    MatExpansionModule
   ],
   exports:[
     FormsModule,
@@ -77,7 +79,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatStepperModule,
     MatRadioModule,
     OverlayModule,
-    MatSlideToggleModule 
+    MatSlideToggleModule,
+    MatExpansionModule
   ],
   providers: []
 })

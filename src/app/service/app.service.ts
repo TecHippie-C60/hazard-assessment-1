@@ -38,6 +38,7 @@ export class AppService {
   public apiLists;
   public lookupLists;
   public listData ;
+  public formData;
 
   apiUrl = environment.apiUrl;
   pinKeySecret = environment.pinKeySecret;
@@ -77,7 +78,7 @@ export class AppService {
     this.lookupLists = [];
     this.idbCrudService.readAll('form').subscribe((forms) => {
       this.lookupLists = forms;
-      console.log(this.lookupLists);
+      // console.log(this.lookupLists);
     });
   }
 
@@ -160,5 +161,10 @@ export class AppService {
     return this.idbCrudService.put('data', obj);
   }
 
-
+  getFormData()
+  {
+    this.idbCrudService.readAll('data').subscribe(data => {
+      this.formData = data;
+    })
+  }
 }

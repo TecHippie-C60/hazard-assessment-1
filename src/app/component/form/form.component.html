@@ -8,8 +8,8 @@
       </div>
     </mat-step>
     <mat-step [stepControl]="hazardsForm" label="Identify tasks & hazards">
-      <app-task [headerForm]=hazardsForm></app-task>
-      <div fxLayoutAlign="space-around center">
+      <app-task [headerForm]=hazardsForm (isPanelOpen)="panelOpen($event)"></app-task>
+      <div fxLayoutAlign="space-around center" *ngIf="!isPanelOpen">
         <button mat-flat-button matStepperPrevious color="primary">Back</button>
         <button mat-flat-button matStepperNext color="primary">Next</button>
       </div>

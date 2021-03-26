@@ -51,6 +51,7 @@ export class AdminComponent implements OnInit {
   
   ngOnInit() {
     this.appService.getForms();
+    this.appService.getFormData();
   }
 
   close(reason: string) {
