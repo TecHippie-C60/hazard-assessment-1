@@ -1,6 +1,6 @@
 # App
 
-Hazard Assessment is a mobile-ready app used to help assess the risk of harm with respect to work-place conditions. The app presents a ready-to-use form for the submission of assessment information which is gathered in a central database. Collected forms can be accessed from the app for further analysis and proceessing.
+Hazard Assessment is a mobile-ready app used to help assess the risk of harm with respect to workplace conditions. The app presents a ready-to-use form for the submission of assessment information which is gathered in a central database. Collected forms can be accessed from the app for further analysis and proceessing.
 
 There are several ways to deploy the app.
 1. Run it from a sub-domain on your website
