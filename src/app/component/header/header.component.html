@@ -1,20 +1,19 @@
 <div class="nav-padding" fxLayout="row" fxLayoutAlign="space-between center">
   <div>
-    <img *ngIf="!appService.isDarkMode" src="assets/logo-light.svg" height="69">
-    <img *ngIf="appService.isDarkMode" src="assets/logo-dark.svg" height="69">
+    <img *ngIf="!appService.isDarkMode" src="assets/parrot.png" height="48">
+    <img *ngIf="appService.isDarkMode" src="assets/parrot.png" height="48">
   </div>
-  <div fxLayoutGap="20px">
-    <div class="menu-label" fxLayoutAlign="center center">
-      <span *ngIf="appService.isDarkMode">
+  <div>
+    <div class="text-color" fxLayoutGap="10px" fxLayoutAlign="center center">
+      <span class="top-margin" *ngIf="appService.isDarkMode">
         <mat-icon>wb_sunny</mat-icon>
       </span>
-      &nbsp;&nbsp;
-      <mat-slide-toggle [(ngModel)]="appService.isDarkMode" color="warn" (click)="changeTheme($event)"></mat-slide-toggle>&nbsp;&nbsp;
-      <span *ngIf="!appService.isDarkMode" fxLayoutAlign="center center">
-        <!-- <mat-icon>mode_night</mat-icon> -->
-      </span>&nbsp;&nbsp;
-      <button class="green" *ngIf="!appService.isSignin" (click)="signin()" mat-flat-button>Sign In</button>
-      <button class="green" *ngIf="appService.isSignin" (click)="signout()" mat-flat-button color="light-green">Sign Out</button>
+      <span class="top-margin" *ngIf="!appService.isDarkMode" fxLayoutAlign="center center">
+        <mat-icon>mode_night</mat-icon>
+      </span>
+      <mat-slide-toggle [(ngModel)]="appService.isDarkMode" color="warn" (click)="changeTheme($event)"></mat-slide-toggle>
+      <button *ngIf="!appService.isSignin && !appService.isID" color="primary" (click)="signin()" mat-flat-button>Sign In</button>
+      <button *ngIf="appService.isSignin" color="primary" (click)="signout()" mat-flat-button>Sign Out</button>
     </div>
   </div>
 </div>

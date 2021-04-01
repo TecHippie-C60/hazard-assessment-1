@@ -1,0 +1,10 @@
+<div fxLayout="column" fxLayoutAlign="space-around center">
+  <div class="text-color bottom-padding"><mat-label>{{companyForm.value.date | date}}</mat-label></div>
+  <div class="text-color bottom-padding"><mat-label>{{companyForm.value.company}}</mat-label></div>
+  <div class="text-color bottom-padding"><mat-label>{{companyForm.value.location}}</mat-label></div>
+  <button class="mine" mat-fab color="accent" (click)="save()">
+    <mat-icon>check</mat-icon>
+  </button>
+  <div class="text-color top-padding bottom-padding"><mat-label>Thanks Brock</mat-label></div>
+  <div class="text-color bottom-padding"><mat-label>Press to Submit</mat-label></div>
+</div>

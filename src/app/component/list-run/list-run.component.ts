@@ -51,9 +51,8 @@ export class ListRunComponent implements OnChanges {
   }
 
   edit(idx, element) {
-    console.log(element)
     this.selectedIdx = idx
-    this.id.setValue(element.value)
+    this.id.setValue(element.item)
   }
 
   saveIdb() {

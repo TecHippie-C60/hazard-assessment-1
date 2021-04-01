@@ -9,7 +9,7 @@ export class IdbSyncService {
 
   constructor(private idbPersistenceService: IdbPersistenceService) { }
   
-  private formLocoDB;
+  private hazardAssessmentDB;
 
   clearIdb(store): Observable<void> {
     return this.idbPersistenceService.clear(store);

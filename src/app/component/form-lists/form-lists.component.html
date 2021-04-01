@@ -1,6 +1,6 @@
 <div class="responsive-container">
-  <div class="lookup-bnt" fxLayout="row" fxLayoutAlign="center center">
-    <button mat-stroked-button (click)="isLookupOpen = !isLookupOpen" class="menu-label" cdkOverlayOrigin #lookupTrigger="cdkOverlayOrigin">
+  <!-- <div class="lookup-bnt" fxLayout="row" fxLayoutAlign="center center">
+    <button mat-stroked-button (click)="isLookupOpen = !isLookupOpen" class="text-color" cdkOverlayOrigin #lookupTrigger="cdkOverlayOrigin">
       Create List
     </button>
     <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="lookupTrigger" [cdkConnectedOverlayOpen]="isLookupOpen" (backdropClick)="closeOverlay()"
@@ -28,7 +28,7 @@
         </div>
       </form>
     </ng-template>
-  </div>
+  </div> -->
   <div fxLayout="row wrap">
     <mat-card (click)=run(formObj) class="custom hand" *ngFor="let formObj of appService.lookupLists; let i=index">
       <div class="action-label" fxLayoutAlign="center">{{formObj.form.name}}</div>

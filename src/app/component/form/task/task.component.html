@@ -1,0 +1,57 @@
+<div class="title">Job Tasks</div>
+<mat-accordion>
+  <div *ngIf="appService.isNew" fxLayoutAlign="center">
+    <button color="primary" mat-flat-button (click)="addMoreTasks()">Add Task</button>
+  </div>
+  <form class="header-form" [formGroup]="hazardsForm">
+    <ng-container formArrayName="values">
+      <mat-expansion-panel #matExpansionPanel fxLayout="column" fxLayoutAlign="space-around" *ngFor="let _ of values.controls;  index as i"
+        (opened)="panelOpened(i)" (closed)="panelClosed(i)" [expanded]="panelOpenState && selectedIndex == i">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            NEW TASK
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div fxLayout="column" fxLayoutAlign="center" [formGroupName]="i">
+          <mat-form-field class="example-chip-list">
+            <mat-label>Task</mat-label>
+            <input matInput placeholder="Task" formControlName="tasks" type="text">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Hazards</mat-label>
+            <mat-select formControlName="hazards" multiple #hazardselect>
+              <mat-select-trigger>
+                {{hazardselect.value ? hazardselect.value[0] : ''}}
+                <span *ngIf="hazardselect.value?.length > 1" class="example-additional-selection">
+                  (+{{hazardselect.value.length - 1}} {{hazardselect.value?.length === 2 ? 'other' : 'others'}})
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let hazard of hazardList" [value]="hazard">{{hazard}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Severity</mat-label>
+            <mat-select formControlName="severity" name="severity">
+              <mat-option *ngFor="let val of severities" [value]="val">
+                {{val}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Probability</mat-label>
+            <mat-select formControlName="probability" name="probabaility">
+              <mat-option *ngFor="let val of probabilities" [value]="val">
+                {{val}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxLayout="column">
+          <button mat-raised-button (click)=saveTask() color="primary">
+            Save
+          </button>
+        </div>
+      </mat-expansion-panel>
+    </ng-container>
+  </form>
+</mat-accordion>

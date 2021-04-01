@@ -24,6 +24,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  id() {
+    this.appService.isID = true;
+  }
+
   signin() {
     this.appService.isPin = true;
   }

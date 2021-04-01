@@ -9,7 +9,7 @@ export class IdbCrudService {
 
   constructor(private idbPersistenceService: IdbPersistenceService) { }
 
-  private formLocoDB;
+  private hazardAssessmentDB;
 
   add(store, obj): Observable<void> {
     return this.idbPersistenceService.put(store, obj);

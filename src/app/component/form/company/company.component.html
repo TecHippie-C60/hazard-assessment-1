@@ -1,13 +1,14 @@
+<div class="title">Company</div>
 <div fxLayout="column" fxLayoutAlign="center center">
   <form class="header-form" [formGroup]="companyForm">
     <div fxLayout="column">
-      <mat-form-field fxflex>
+      <mat-form-field class="text-color" fxflex>
         <mat-label>Choose a date</mat-label>
         <input matInput formControlName="date" [matDatepicker]="picker">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
-      <mat-form-field class="example-full-width">
+      <mat-form-field class="text-color" fxflex>
         <mat-label>Company</mat-label>
         <input type="text" placeholder="Company" matInput formControlName="company" [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete">
@@ -16,19 +17,19 @@
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-      <mat-form-field fxFlex>
+      <mat-form-field class="text-color" fxFlex>
         <mat-label>Location</mat-label>
         <input matInput placeholder="Location" formControlName="location" type="text">
       </mat-form-field>
-      <mat-form-field fxFlex>
+      <mat-form-field class="text-color" fxFlex>
         <mat-label>Muster Point</mat-label>
         <input matInput placeholder="Muster Point" formControlName="musterPoint" type="text">
       </mat-form-field>
-      <mat-form-field fxFlex>
+      <mat-form-field class="text-color" fxFlex>
         <mat-label>Permit/Job Number</mat-label>
         <input matInput placeholder="Permit/Job Number" formControlName="jobNumber" type="text">
       </mat-form-field>
-      <mat-form-field fxFlex>
+      <mat-form-field class="text-color" fxFlex>
         <mat-label>PPE Inspection</mat-label>
         <input matInput placeholder="PPE Inspection" formControlName="ppeInspection" type="text">
       </mat-form-field>

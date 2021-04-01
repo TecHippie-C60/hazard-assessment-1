@@ -1,5 +1,4 @@
 <div class="column" fxFlexFill>
-  
   <mat-sidenav-container class="list-container" [ngStyle]="{'background-color': appService.canvasBackground}" (backdropClick)="close('backdrop')"
     autosize>
     <mat-sidenav #sidenav (keydown.escape)="close('escape')" class="list-menu" mode="over" [(opened)]="appService.isListMenu" position="end">

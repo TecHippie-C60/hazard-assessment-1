@@ -1,0 +1,21 @@
+<div fxLayout="column" [ngStyle]="{'background-color': appService.canvasBackground}" fxLayoutAlign="center center">
+  <form class="container-padding" [formGroup]="idForm">
+    <div fxLayout="column">
+      <div class="text-color text-center">
+        <h2>Welcome, what name would like us to use?</h2>
+      </div>
+      <br>
+      <mat-form-field appearance="outline" fxFlex>
+        <input matInput placeholder="Enter Name" formControlName="name" type="text" required>
+        <mat-error>
+          Name is required!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div fxLayoutAlign="center" fxLayout="row" fxLayoutGap="1rem">
+      <button class="mine" mat-fab color="accent" (click)="save()">
+        <mat-icon>check</mat-icon>
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,15 @@
+<div fxLayout="column" fxLayoutAlign="center center">
+  <form class="header-form" [formGroup]="workersForm">
+    <ng-container formArrayName="workers">
+      <div fxLayout="column" *ngFor="let _ of workers.controls;  index as i">
+        <div [formGroupName]="i" fxLayout="row" fxLayoutAlign="space-around center">
+          <mat-form-field fxFlex>
+            <mat-label>Worker Name:</mat-label>
+            <input matInput formControlName="name" type="text">
+          </mat-form-field>
+        </div>
+      </div>
+    </ng-container>
+    <button mat-flat-button (click)="addWorkers()">Add More</button>
+  </form>
+</div>

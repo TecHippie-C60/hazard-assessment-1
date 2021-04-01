@@ -1,27 +1,28 @@
-# Assessment
+# App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.0-next.1.
+Hazard Assessment is a mobile-ready app used to help assess the risk of harm with respect to work-place conditions. The app presents a ready-to-use form for the submission of assessment information which is gathered in a central database. Collected forms can be accessed from the app for further analysis and proceessing.
 
-## Development server
+There are several ways to deploy the app.
+1. Run it from a sub-domain on your website
+2. Embed it on a page on your website
+3. Use the formloco designer to add it to a form
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+To see the app in action check out https://hazard-assessment.formloco.com
 
-## Code scaffolding
+## Deployment
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+The fastest way to get up and running is to copy the `/dist/forms` folder into a web server directory. The app will run when you hit the web url in your browser.
 
-## Build
+The formloco frontend is written in Angular, you can fork or clone the repo to your local machine and use the Angular CLI to run it at `localhost:4200`.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Both these scenarios will run against the formloco API by default.
 
-## Running unit tests
+For information on how to deploy formloco to your own server or cloud service check out https://github.com/formloco/formloco/wiki/Deployment.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Docs
 
-## Running end-to-end tests
+https://github.com/formloco/hazard-assessment/wiki
+​
+## License & copyright
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Licensed under the [MIT License](LICENSE).

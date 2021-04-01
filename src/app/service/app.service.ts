@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment';
 import { IdbCrudService } from "../service-idb/idb-crud.service";
 
 import { LookupList } from '../model/lookup-list';
+import { DemoList } from '../model/demo-list';
 
 import * as uuid from 'uuid';
 import * as CryptoJS from 'crypto-js';
@@ -23,10 +24,12 @@ export class AppService {
   public isTask;
   public isAssessment;
   public isJobDetail;
-  public isWorker;
+  // public isWorker;
   public isListMenu;
 
+  public isID;
   public isPin;
+  public isNew;
   public isSignin;
   public isData = true;
   public isDarkMode = true;
@@ -42,29 +45,15 @@ export class AppService {
 
   apiUrl = environment.apiUrl;
   pinKeySecret = environment.pinKeySecret;
+  demoList = DemoList;
   lookupList = LookupList;
+
   constructor(
     private _http: HttpClient,
     private idbCrudService: IdbCrudService
   ) {
     this.listData = new BehaviorSubject([{}]);
    }
-
-  setPage(page) {
-    this.isHeader = false;
-    this.isTask = false;
-    this.isAssessment = false;
-    this.isJobDetail = false;
-    this.isWorker = false;
-
-    if (page === 'header') this.isHeader = true;
-    if (page === 'task') this.isTask = true;
-    if (page === 'assesssment') this.isAssessment = true;
-    if (page === 'jobDetail') this.isJobDetail = true;
-    if (page === 'worker') this.isWorker = true;
-
-    console.log(this.isHeader,this.isTask)
-  }
 
   create(obj) {
     return this._http.post(this.apiUrl, obj);
@@ -85,12 +74,12 @@ export class AppService {
   initConfig() {
     this.lookupLists = [];
     this.idbCrudService.readAll('form').subscribe((forms) => {
-      const lists = environment.lists;
+      // const lists = environment.lists;
       this.lookupLists = forms;
       
-      if(this.lookupLists.filter(e => { return e.form.name == Object.keys(lists)[0]}).length ==0)
+      if(this.lookupLists.filter(e => { return e.form.name == Object.keys(this.demoList)[0]}).length ==0)
       {
-        for(const [name, data] of Object.entries(lists))
+        for(const [name, data] of Object.entries(this.demoList))
         {
           let idbForm = this.createList(name);
           this.idbCrudService.put('form', idbForm).subscribe(id => {

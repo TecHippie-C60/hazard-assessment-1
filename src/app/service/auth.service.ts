@@ -22,4 +22,8 @@ export class AuthService {
     return this._http.get(this.authUrl+'token');
   }
 
+  userSignedIn() {
+    return JSON.parse(localStorage.getItem('formUser'))
+  }
+  
 }

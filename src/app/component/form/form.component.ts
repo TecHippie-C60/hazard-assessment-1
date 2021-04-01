@@ -26,7 +26,7 @@ export class FormComponent implements OnInit {
   companyForm: FormGroup;
   hazardsForm: FormGroup;
   jobDetailForm: FormGroup;
-  workersForm: FormGroup;
+  signOffForm: FormGroup;
 
   myInnerHeight = window.innerHeight;
   isPanelOpen = false;
@@ -44,11 +44,7 @@ export class FormComponent implements OnInit {
       jobNumber: [''],
       ppeInspection: ['']
     });
-    // this.hazards = this.formBuilder.group({
-    //   tasks: [''],
-    //   hazards: ['']
-
-    // })
+   
     let formArray: FormArray = this.formBuilder.array([
       this.formBuilder.group({
         tasks: [''],
@@ -72,7 +68,7 @@ export class FormComponent implements OnInit {
     anyIncidents: [''],
     commentOnIncidents: ['']
   });
-  this.workersForm = this.formBuilder.group({
+  this.signOffForm = this.formBuilder.group({
     workers: this.formBuilder.array([
       this.formBuilder.group({
         name: ['']
@@ -83,17 +79,14 @@ export class FormComponent implements OnInit {
   
 
   ngOnInit(): void {
-    // this.authService.token().subscribe(token => {
-    //   this.token = token;
-    //   localStorage.setItem('formToken', this.token.token);
-    // });
+    this.companyForm.patchValue({date: new Date()})
   }
 
   goPIN() {
     this.router.navigate(['admin']);
   }
-  submitForm()
-  {
+
+  submitForm() {
     let formValues = {
       'company': this.companyForm.value,
       'hazards': this.hazardsForm.value
@@ -103,23 +96,24 @@ export class FormComponent implements OnInit {
     
     this.companyForm.reset();
     this.hazardsForm.reset();
-    console.log(this.hazardsForm.get('values').get('controls'));
-    // this.hazardsForm.get('values').clear();
+    
     let formArray: FormArray = this.hazardsForm.get('values') as FormArray;
     while (formArray.length !== 1) {
       formArray.removeAt(0)
     }
-    this._snackBar.open("Form Submitted!", '',{
+    this._snackBar.open("Form Submitted!", '', {
       duration: 3000,
       verticalPosition: 'top'
-
     });
-    
   }
+
   openLists() {
     this.isLookuplist = true;
     this.isRightMenu = !this.isRightMenu;
   }
 
+  getHistory() {
+
+  }
 
 }

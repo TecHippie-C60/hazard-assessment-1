@@ -7,44 +7,42 @@ import { Observable, from } from 'rxjs';
 })
 export class IdbPersistenceService {
 
-  private formLocoDB;
+  private hazardAssessmentDB;
 
   async connect(): Promise<void> {
-    this.formLocoDB = await openDB('formLocoDB', 1, {
+    this.hazardAssessmentDB = await openDB('hazardAssessmentDB', 1, {
       upgrade(db) {
         db.createObjectStore('form', { keyPath: 'id', autoIncrement: true }) // form structure
         db.createObjectStore('data', { keyPath: 'id', autoIncrement: true }) // form data
-        // db.createObjectStore('share', { keyPath: 'id', autoIncrement: true }) // shared form structure
         db.createObjectStore('prefs', { keyPath: 'id', autoIncrement: false }) // preferences
-
         db.createObjectStore('list_data', { keyPath: 'id', autoIncrement: true }) // list data
       }
     });
   }
 
   read(storeName: string, key): Observable<any> {
-    return from(this.formLocoDB.get(storeName, key));
+    return from(this.hazardAssessmentDB.get(storeName, key));
   }
 
   readAll(storeName: string): Observable<any> {
-    return from(this.formLocoDB.getAll(storeName));
+    return from(this.hazardAssessmentDB.getAll(storeName));
   }
 
   add(storeName: string, item: any): Observable<any> {
-    return from(this.formLocoDB.add(storeName, item));
+    return from(this.hazardAssessmentDB.add(storeName, item));
   }
   
   // update, create for auto-increment store
   put(storeName: string, item: any): Observable<any> {
-    return from(this.formLocoDB.put(storeName, item));
+    return from(this.hazardAssessmentDB.put(storeName, item));
   }
 
   delete(storeName: string, key: any): Observable<any> {
-    return from(this.formLocoDB.delete(storeName, key));
+    return from(this.hazardAssessmentDB.delete(storeName, key));
   }
 
   clear(storeName: string): Observable<any> {
-    return from(this.formLocoDB.clear(storeName));
+    return from(this.hazardAssessmentDB.clear(storeName));
   }
 
 }

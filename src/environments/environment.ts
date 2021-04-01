@@ -7,11 +7,6 @@ export const environment = {
   apiUrl: 'https://bluerockmicro.com/api/',
   authUrl: 'https://bluerockmicro.com/auth/',
   formUrl: 'https://bluerockmicro.com/form/',
-  lists: {"hazards": ["1", "2", "3"], 
-          "severities": ["Imminent Danger", "Serious", "Minor", "Not Applicable"], 
-          "probabilities": ["Probable", "Reasonably Probable", "Remote", "Extremely Remote"],
-          "companies": ["One", "Two", "Three"]
-        },
 
   // authUrl: 'http://localhost:9000/',
   // userUrl: 'http://localhost:9001/',

@@ -1,43 +1,17 @@
 <mat-horizontal-stepper [linear]=true #stepper>
-    <mat-step [stepControl]="companyForm" label="Company Information">
-      <app-company [companyForm]=companyForm></app-company>
-      <!-- <div fxLayoutAlign="space-around center">
-        <button mat-flat-button matStepperNext color="primary">
-          NEXT
-        </button>
-      </div> -->
-    </mat-step>
-    <mat-step [stepControl]="hazardsForm" label="Identify tasks & hazards">
-      <app-task [headerForm]=hazardsForm ></app-task>
-      <!-- <div fxLayoutAlign="space-around center">
-        <button mat-flat-button matStepperPrevious color="primary">Back</button>
-        <button mat-flat-button matStepperNext color="primary">Next</button>
-      </div> -->
-    </mat-step>
-    <!-- <mat-step [stepControl]="jobDetailForm" label="Job Details">
-    <app-job-details [jobDetailForm]=jobDetailForm></app-job-details>
-    <div fxLayoutAlign="space-around center">
-      <button mat-flat-button matStepperPrevious color="primary">Back</button>
-      <button mat-flat-button matStepperNext color="primary">Next</button>
-    </div>
-    
+  <mat-step [stepControl]="companyForm">
+    <app-company [companyForm]=companyForm></app-company>
   </mat-step>
-  <mat-step [stepControl]="workersForm" label="Job Details">
-    <app-workers [workersForm]=workersForm></app-workers>
-    <div fxLayoutAlign="space-around center">
-      <button mat-flat-button matStepperPrevious color="primary">Back</button>
-      <button mat-flat-button matStepperNext color="primary">Next</button>
-    </div>
-    
-  </mat-step> -->
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      <div fxLayoutAlign="space-around center">
-        <button mat-flat-button color="primary" (click)="submitForm();stepper.reset();">Submit Form</button>
-      </div>
-      <!-- <div fxLayoutAlign="space-around center">
-        <button mat-flat-button color="primary" matStepperPrevious>Back</button>
-        <button mat-flat-button color="primary" (click)="stepper.reset()">Reset</button>
-      </div> -->
-    </mat-step>
-  </mat-horizontal-stepper>
+  <mat-step [stepControl]="hazardsForm">
+    <app-task [hazardsForm]=hazardsForm></app-task>
+  </mat-step>
+  <mat-step [stepControl]="jobDetailForm">
+    <app-job-details [jobDetailForm]=jobDetailForm></app-job-details>
+  </mat-step>
+  <mat-step [stepControl]="signOffForm">
+    <app-sign-off (submitForm)="submitForm()" [companyForm]="companyForm"></app-sign-off>
+  </mat-step>
+</mat-horizontal-stepper>
+<footer>
+  <app-footer (getHistory)=getHistory()></app-footer>
+</footer>
